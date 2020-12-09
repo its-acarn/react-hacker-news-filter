@@ -1,4 +1,5 @@
 import {useState, useEffect } from 'react';
+import TopStories from '../components/TopStories';
 
 const NewsContainer = () => {
 
@@ -40,7 +41,7 @@ const NewsContainer = () => {
 
   return (
     <main>
-
+      <TopStories currentPage={page} topStories={topStories} Loaded={promiseAllLoaded}/>
     </main>
 
   )
