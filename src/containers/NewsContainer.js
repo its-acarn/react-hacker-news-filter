@@ -41,7 +41,7 @@ const NewsContainer = () => {
 
   return (
     <main>
-      <TopStories currentPage={page} topStories={topStories} Loaded={promiseAllLoaded}/>
+      <TopStories currentPage={page} setPage={setPage} topStories={topStories} loaded={promiseAllLoaded}/>
     </main>
 
   )
