@@ -6,6 +6,7 @@ const NewsContainer = () => {
   const [promiseAllLoaded, setPromiseAllLoaded] = useState(false);
   const [topStoriesID, setTopStoriesID] = useState([]);
   const [topStories, setTopStories] = useState([]);
+  const [page, setPage] = useState(1);
 
   const topStoriesURL = 'https://hacker-news.firebaseio.com/v0/topstories.json';
 
@@ -20,13 +21,13 @@ const NewsContainer = () => {
     return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json `)
   };
 
-  const getAllStories = () => {if (!apiLoaded){
-  Promise.all(topStoriesID.map(id => 
+  const getAllStories = (page) => {if (apiLoaded){
+  Promise.all(topStoriesID.slice((page*1)-1, (page*1)+9).map(id =>
     getStoryById(id)
     .then(res => res.json())
-    .then(data => setTopStories([...topStories,data]))
-    .then(console.log("change"))
-  )).then(setPromiseAllLoaded(true))
+  )).then(data => {
+    setTopStories(data)
+  }).then(setPromiseAllLoaded(true))
   }}
 
   useEffect(() => {
@@ -34,12 +35,12 @@ const NewsContainer = () => {
   },[]);
 
   useEffect(() => {
-    getAllStories();
-  }, [topStoriesID])
+    getAllStories(page);
+  }, [apiLoaded, page])
 
   return (
     <main>
-      
+
     </main>
 
   )
